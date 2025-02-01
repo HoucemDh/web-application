@@ -1,0 +1,213 @@
+type Globalstock{
+    id: ID!
+    article: String
+    designation: String
+    Categorie: String
+    Quantite_US: Float
+    Unite_stock: String
+    Quantite_active_US: Float
+    Quantite_Allouee: Float
+    Lot: String
+    S_lot: String
+    Identifiant: String
+    Identifiant2: String
+    Emplacement: String
+    statut: String
+    Lot_fournisseur: String
+    Date_Peremption: String
+    Date_recontrole: String
+    Demande_analyse: String
+    Quantite_UC: Float
+    Coef_UC_US: Float
+}
+
+type Bom {
+    id: ID!
+    codeproduit: String
+    BOM_Alternative: Int
+    Categorie_Produit: String
+    libelles_PF: String
+    taillelot: Float
+    article: String
+    libellesMP: String
+    Qte_besoin: Float
+    unite: String
+}
+
+
+type Stock {
+    id: ID!
+    article: String
+    designation: String
+    Unite: String
+    Famille: String
+    QuantiteA: Float
+    QuantiteAC: Float
+    SommeA_AC: Float
+    QuantiteQ: Float
+    QuantiteQPR: Float
+    OFPlanifie: Float
+    OFSuggere: Float
+    SommeOFFerme: Float
+    sommeDA: Float
+    SommeCDE: Float
+    UniteStock: String
+    NBlinge: Int
+    Qinimum: Float
+    PMP: Float
+    Pays: String
+    leadtime: Float
+    stocksecurite: Float
+}
+
+type Cde{
+    id: ID!
+    nocommande: String
+    Date_commande: String
+    Date_recept_prevue: String
+    Fournisseur: String 
+    Raisonsociale: String
+    article: String
+    Designation: String
+    Quantite_UA: Float
+    Quantite_US: Float
+    Unite_achat: String
+    Reste_livrer: Float
+    Devise: String
+    Prix_brut: Float
+    Montant_ligne: Float
+    Pays: String
+    Condition_paiement: String
+    Ligne_soldee: Int
+    Solde_Reception: Int
+    Qte_Recept_UA: Float
+    Qte_Facture_UA: Float
+    Reste_livrer_US: Float
+    Mode_livraison: String
+    Type_Achat: Int
+    Piece_Origine: String
+    Categorie: String
+    Facturee: Int
+    Imprimee: Int
+    Signee: Int
+    Date_confirm_frs: String
+    Date_rec_facture: String
+    Date_doc_transport: String
+    Date_embarquement: String
+    Date_prevue_arr_port: String
+    Date_avis_arrivee: String
+    Date_rec_site: String
+    Dispo_Of: Float
+}
+
+input StockInput {
+    article: ID!
+    designation: String
+    Unite: String
+    Famille: String
+    QuantiteA: Float
+    QuantiteAC: Float
+    SommeA_AC: Float
+    QuantiteQ: Float
+    QuantiteQPR: Float
+    OFPlanifie: Float
+    OFSuggere: Float
+    SommeOFFerme: Float
+    sommeDA: Float
+    SommeCDE: Float
+    UniteStock: String
+    NBlinge: Int
+    Qinimum: Float
+    PMP: Float
+    Pays: String
+    leadtime: Float
+    stocksecurite: Float
+}
+
+type Mvst{
+    article: ID!
+    Designation: String
+    Date_imputation: String
+    Quantite_US: Float
+    Unite_stock: String
+    Quantite: Float
+    Unite: String
+    Statut: String
+    Lot: String
+    S_lot: String
+    Identifiant1: String
+    Identifiant2: String
+    Lot_fournisseur: String
+    Emplacement: String
+    Type_transaction: Int
+    Tiers: String
+    Type_piece: Int
+    Piece: String
+    Piece_origine: String
+    No_ligne_piece: Int
+    Date_creation: String
+    Operateur_creation: String
+    Date_peremption: String
+    DLU: String
+    Affaire: String
+}
+
+type PageInfo {
+    pageNumber: Int!
+    pageSize: Int!
+    totalElements: Int!
+    totalPages: Int!
+    hasNext: Boolean!
+    hasPrevious: Boolean!
+}
+
+type StockPage {
+    content: [Stock!]!
+    pageInfo: PageInfo!
+}
+
+type GlobalstockPage {
+    content: [Globalstock!]!
+    pageInfo: PageInfo!
+}
+
+type RotationMp {
+    idRotation: ID!
+    dispoof: Float
+}
+
+type Mutation {
+    saveDispoOfToRotationMp: Boolean!
+}
+
+type Query{
+    getAllArticles: [Globalstock]
+    getArticle(article: String!): [Globalstock]
+    getStatutAndArticle(statut: String!,article: String!): [Globalstock]
+    getDes(designation: String!): [Globalstock]
+    getStatutAndDesignation(statut: String!, designation: String!): [Globalstock]
+    getLot(Lot: String!): [Globalstock]
+
+
+    getBom: [Bom]
+    getCodeProduit(codeproduit: String): [Bom]
+    getLibellesMP(libellesMP: String!): [Bom]
+    getUnite(unite: String!): [Bom]
+    getTaillelot(taillelot: Float!): [Bom]
+
+    getAllPaginated(page: Int!, size: Int!): StockPage!
+    searchStock(query: String!): [Stock!]!
+
+    getAllCommande: [Cde]
+    getCdeAndArticle(nocommande: String!,article: String!): [Cde]
+    getCdeArticle(article: String!): [Cde]
+    getNocommande(nocommande: String!): [Cde]
+    getRaisonsociale(Raisonsociale: String!): [Cde]
+
+    getAllMvst: [Mvst]
+
+
+    getAllRotation:[RotationMp]
+}
+
+
